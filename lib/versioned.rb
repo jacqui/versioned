@@ -33,5 +33,8 @@ module Versioned
   end
   def self.included klass
     klass.extend Versioned::ClassMethods
+    klass.class_eval do
+      versioned
+    end
   end
 end

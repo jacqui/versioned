@@ -6,7 +6,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../lib/version')
 class Doc
   include MongoMapper::Document
   include Versioned
-  versioned
   key :title, String
 end
 
