@@ -9,7 +9,6 @@ Usage
     class Doc
       include MongoMapper::Document
       include Versioned
-      versioned
       key :title, String
     end
 
