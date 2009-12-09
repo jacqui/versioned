@@ -1,0 +1,23 @@
+Versioned
+=========
+
+Simple versioning for MongoMapper
+
+Usage
+-----
+
+    class Doc
+      include MongoMapper::Document
+      include Versioned
+      versioned
+      key :title, String
+    end
+
+    @doc = Doc.create(:title=>"v1")
+    @doc.title = "v2"
+    @doc.save
+
+    @doc.revert
+
+    puts @doc.title
+    => v1
