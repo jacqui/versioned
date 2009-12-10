@@ -9,7 +9,7 @@ begin
     gem.description = %Q{a gem version of twoism's versioned lib for MongoMapper}
     gem.email = "jacqui@brighter.net"
     gem.homepage = "http://github.com/jacqui/versioned"
-    gem.authors = ["Jacqui Maher"]
+    gem.authors = ["Jacqui Maher", "Christopher Burnett"]
     gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

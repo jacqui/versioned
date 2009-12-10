@@ -5,21 +5,21 @@
 
 Gem::Specification.new do |s|
   s.name = %q{versioned}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Jacqui Maher"]
+  s.authors = ["Jacqui Maher", "Christopher Burnett"]
   s.date = %q{2009-12-10}
   s.description = %q{a gem version of twoism's versioned lib for MongoMapper}
   s.email = %q{jacqui@brighter.net}
   s.extra_rdoc_files = [
     "LICENSE",
+     "README.markdown",
      "README.rdoc"
   ]
   s.files = [
-    ".document",
-     ".gitignore",
-     "LICENSE",
+    "LICENSE",
+     "README.markdown",
      "README.rdoc",
      "Rakefile",
      "VERSION",
@@ -27,7 +27,9 @@ Gem::Specification.new do |s|
      "lib/version.rb",
      "lib/versioned.rb",
      "test/helper.rb",
-     "test/test_versioned.rb"
+     "test/test_helper.rb",
+     "test/test_versioned.rb",
+     "versioned.gemspec"
   ]
   s.homepage = %q{http://github.com/jacqui/versioned}
   s.rdoc_options = ["--charset=UTF-8"]
