@@ -4,7 +4,7 @@ module Versioned
     def versioned
       include InstanceMethods
       many :versions, :as => :versioned, :dependent=>:destroy
-      
+      key :version, Integer
       before_update :save_version
     end
   end
@@ -13,6 +13,7 @@ module Versioned
       versions << Version.create(:changed_attrs=>changes,:version_number => new_version_number)
     end
     def new_version_number
+      version = versions.count + 1
       versions.count + 1
     end
     

@@ -1,8 +1,8 @@
 class Version
   include MongoMapper::Document
-  key :version_number, Integer
-  key :versioned_type, String
-  key :versioned_id, ObjectId
+  key :version_number, Integer, :required => true
+  key :versioned_type, String, :required => true
+  key :versioned_id, ObjectId, :required => true
   key :changed_attrs, Hash
   timestamps!
 
