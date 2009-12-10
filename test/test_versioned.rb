@@ -41,6 +41,10 @@ class VersionTest < Test::Unit::TestCase
       should "have the correct version number" do
         assert_equal(1, @doc.versions.first.version_number)
       end
+
+      should "update the model's version key" do
+        assert_equal(1, @doc.version)
+      end
       
       should "have :title in changes" do
         assert_contains(@doc.versions.first.changed_attrs.keys, "title")
@@ -58,6 +62,13 @@ class VersionTest < Test::Unit::TestCase
         assert_equal("Version 2", @doc.title)
       end
       
+      should "retrieve a specific version without reverting it" do
+        @doc.title = "Version 3"
+        @doc.save
+        version_count = @doc.versions.size
+        @doc.retrieve_version 2
+        assert_equal version_count, @doc.versions.size
+      end
       should "cleanup versions on destroy" do
         @doc.destroy
         assert_equal(0, Version.count)

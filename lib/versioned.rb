@@ -11,6 +11,7 @@ module Versioned
   module InstanceMethods
     def save_version
       versions << Version.create(:changed_attrs=>changes,:version_number => new_version_number)
+      self.version = versions.count
     end
     def new_version_number
       version = versions.count + 1
@@ -30,7 +31,13 @@ module Versioned
       end
       save
     end
-    
+
+    def retrieve_version n
+      versions.find_by_version_number(n).changed_attrs.each do |n,v|
+        self.send("#{n.to_sym}=",v.first)
+      end 
+    end 
+
   end
   def self.included klass
     klass.extend Versioned::ClassMethods
