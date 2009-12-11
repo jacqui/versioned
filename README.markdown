@@ -18,5 +18,10 @@ Usage
 
     @doc.revert
 
+    @doc.title = "v3"
+    @doc.save
+
+    @doc.revert_to_version(1)
+
     puts @doc.title
     => v1
