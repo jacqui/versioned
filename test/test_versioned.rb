@@ -34,6 +34,10 @@ class VersionTest < Test::Unit::TestCase
         @doc.save
       end
 
+      should "have correct version" do
+        assert_equal(1, @doc.version)
+      end
+
       should "create a version after update" do
         assert_equal(1, @doc.versions.count)
       end
@@ -55,6 +59,8 @@ class VersionTest < Test::Unit::TestCase
         @doc.title = "Version 3"
         @doc.save
         @doc.revert_to_version 2
+        
+        assert_equal(2, @doc.version)
         assert_equal("Version 2", @doc.title)
       end
       
