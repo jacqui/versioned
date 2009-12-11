@@ -35,9 +35,9 @@ class VersionTest < Test::Unit::TestCase
       end
 
       should "have correct version" do
-        assert_equal(1, @doc.version)
+        assert_equal(2, @doc.version)
       end
-
+      
       should "create a version after update" do
         assert_equal(1, @doc.versions.count)
       end
@@ -62,6 +62,10 @@ class VersionTest < Test::Unit::TestCase
         
         assert_equal(2, @doc.version)
         assert_equal("Version 2", @doc.title)
+      end
+      
+      should "diff should be title:Foo" do
+        assert_equal("Foo",  @doc.diff(1).first["title"][0])
       end
       
       should "cleanup versions on destroy" do

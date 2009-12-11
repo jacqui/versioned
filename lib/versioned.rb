@@ -4,7 +4,7 @@ module Versioned
     
     def save_version
       versions << Version.create(:changed_attrs=>changes,:version_number => new_version_number)
-      self.version = self.versions.count
+      self.version = self.versions.count+1
       save_to_collection
     end
     
@@ -29,12 +29,17 @@ module Versioned
       save_to_collection
     end
     
+    def diff v
+      compare_to = self.versions.find_by_version_number(v)
+      compare_to.changed_attrs.map {|n,v| { n => v } }
+    end
+    
   end
   def self.included klass
     klass.class_eval do
       include InstanceMethods
       many :versions, :as => :versioned, :dependent=>:destroy
-      key :version, Integer, :default => 0
+      key :version, Integer, :default => 1
       before_update :save_version
     end
   end
