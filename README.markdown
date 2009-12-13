@@ -16,12 +16,12 @@ Usage
     @doc.title = "v2"
     @doc.save
 
-    @doc.revert
+    @doc.revert_to(@doc.version - 1)
 
     @doc.title = "v3"
     @doc.save
 
-    @doc.revert_to_version(1)
+    @doc.revert_to(1)
 
     puts @doc.title
     => v1

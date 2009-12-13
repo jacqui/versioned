@@ -1,4 +1,10 @@
-%w{rubygems mongo_mapper shoulda mongo/gridfs mime/types}.each {|f| require f}
+$: << File.join(File.dirname(__FILE__), '..', 'lib')
+$: << File.dirname(__FILE__)
 
-DB_NAME = "test-versions"
-
+require 'rubygems'
+require 'test/unit'
+require 'shoulda'
+require 'mongo_mapper'
+require 'versioned'
+require 'schema'
+begin; require 'redgreen'; rescue LoadError; end
