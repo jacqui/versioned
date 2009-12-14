@@ -126,7 +126,11 @@ module Versioned
           changes
         end
       end
-
+      
+      def revert
+        revert_to self.version -1
+      end
+      
       def revert_to(value)
         to_number = versions.number_at(value)
         changes = changes_between(version, to_number)
