@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["twoism", "toastyapps"]
+  s.authors = ["twoism", "toastyapps", "jacqui"]
   s.date = %q{2009-12-17}
   s.description = %q{Versioning for MongoMapper}
   s.email = %q{signalstatic@gmail.com}
@@ -18,8 +18,10 @@ Gem::Specification.new do |s|
   s.files = [
     "README.markdown",
      "Rakefile",
+     "VERSION",
      "lib/version.rb",
      "lib/versioned.rb",
+     "pkg/versioned-0.1.0.gem",
      "test/between_test.rb",
      "test/changes_test.rb",
      "test/comparable_test.rb",
@@ -27,7 +29,8 @@ Gem::Specification.new do |s|
      "test/latest_changes_test.rb",
      "test/revert_test.rb",
      "test/schema.rb",
-     "test/test_helper.rb"
+     "test/test_helper.rb",
+     "versioned.gemspec"
   ]
   s.homepage = %q{http://github.com/twoism/versioned}
   s.rdoc_options = ["--charset=UTF-8"]

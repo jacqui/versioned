@@ -11,7 +11,7 @@ begin
     g.description = %(Versioning for MongoMapper)
     g.email = 'signalstatic@gmail.com'
     g.homepage = 'http://github.com/twoism/versioned'
-    g.authors = %w(twoism toastyapps)
+    g.authors = %w(twoism toastyapps jacqui)
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
