@@ -5,12 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "versioned"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Versioning for MongoMapper}
+    gem.description = %Q{a gem version of twoism's versioned lib for MongoMapper}
     gem.email = "jacqui@brighter.net"
     gem.homepage = "http://github.com/jacqui/versioned"
-    gem.authors = ["Jacqui Maher"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.authors = ["Jacqui Maher", "Christopher Burnett"]
+    gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
