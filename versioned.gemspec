@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/version.rb",
      "lib/versioned.rb",
-     "pkg/versioned-0.1.0.gem",
      "test/between_test.rb",
      "test/changes_test.rb",
      "test/comparable_test.rb",
