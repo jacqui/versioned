@@ -1,0 +1,51 @@
+= versioned
+
+Simple versioning for MongoMapper
+
+= installation
+
+The versioned gem is hosted on gemcutter.org:
+
+* gem install versioned
+
+= usage
+
+    class Doc
+      include MongoMapper::Document
+      include Versioned
+      key :title, String
+    end
+
+    @doc = Doc.create(:title=>"v1")
+    @doc.title = "v2"
+    @doc.save
+
+    @doc.revert
+
+    puts @doc.title
+    => v1
+
+    @doc.title = "v3"
+    @doc.save
+    @doc.version
+    => 3
+
+    @doc.retrieve_version 2
+    puts @doc.title 
+    => "v2"
+
+    @doc = Doc.find(@doc.id)
+    @doc.title
+    => "v3"
+    @doc.version
+    => 3
+
+== Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.

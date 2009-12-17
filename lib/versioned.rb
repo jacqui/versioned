@@ -131,6 +131,12 @@ module Versioned
         revert_to self.version -1
       end
       
+      def retrieve_version n
+        versions.find_by_number(n).changes.each do |n,v|
+          self.send("#{n.to_sym}=",v.first)
+        end 
+      end
+      
       def revert_to(value)
         to_number = versions.number_at(value)
         changes = changes_between(version, to_number)

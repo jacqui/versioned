@@ -52,6 +52,14 @@ class CreationTest < Test::Unit::TestCase
         assert_not_equal @count, @user.versions.count
       end
     end
+    
+    should "retrieve a specific version without reverting it" do
+      @user.name = "Hoge"
+      @user.save
+      version_count = @user.versions.size
+      @user.retrieve_version 2
+      assert_equal version_count, @user.versions.size
+    end
 
     context 'after multiple updates' do
       setup do
