@@ -15,6 +15,9 @@ module Versioned
       class_inheritable_accessor :version_except_columns
       self.version_except_columns = Array(options[:except]).map(&:to_s).uniq if options[:except]
 
+      class_inheritable_accessor :version_use_key
+      self.version_use_key = options[:use_key]
+
       many :versions, :as => :versioned, :order => 'number ASC', :dependent => :delete_all do
         def between(from, to)
           from_number, to_number = number_at(from), number_at(to)
@@ -81,12 +84,18 @@ module Versioned
         @version = new_version
       end
 
+      def next_version_number(initial = false)
+        v = read_attribute self.version_use_key unless self.version_use_key.nil?
+        v = 1 if v.nil? && initial
+        v = last_version + 1 if v.nil? && !initial
+        v
+      end
       def create_initial_version
-        versions.create(:changes => nil, :number => 1)
+        versions.create(:changes => nil, :number => next_version_number(true))
       end
 
       def create_version
-        versions << Version.create(:changes => changes.slice(*versioned_columns), :number => (last_version + 1))
+        versions << Version.create(:changes => changes.slice(*versioned_columns), :number => next_version_number)
         reset_version
       end
 
