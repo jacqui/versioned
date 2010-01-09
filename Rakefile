@@ -6,12 +6,12 @@ require 'rake/rdoctask'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |g|
-    g.name = 'versioned'
+    g.name = 'mrkut-versioned'
     g.summary = %(Versioning for MongoMapper)
     g.description = %(Versioning for MongoMapper)
-    g.email = 'signalstatic@gmail.com'
-    g.homepage = 'http://github.com/twoism/versioned'
-    g.authors = %w(twoism toastyapps jacqui)
+    g.email = 'mrkurt@gmail.com'
+    g.homepage = 'http://github.com/mrkurt/versioned'
+    g.authors = %w(twoism toastyapps jacqui mrkurt)
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
