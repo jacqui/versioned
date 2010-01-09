@@ -6,7 +6,7 @@ require 'rake/rdoctask'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |g|
-    g.name = 'mrkut-versioned'
+    g.name = 'mrkurt-versioned'
     g.summary = %(Versioning for MongoMapper)
     g.description = %(Versioning for MongoMapper)
     g.email = 'mrkurt@gmail.com'
