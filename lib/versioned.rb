@@ -137,7 +137,7 @@ module Versioned
       end
       
       def revert
-        revert_to self.version -1
+        revert_to self.versions.at(self.version).previous
       end
       
       def retrieve_version n
@@ -165,7 +165,7 @@ module Versioned
       end
 
       def latest_changes
-        return {} if version.nil? || version == 1
+        return {} if version.nil?
         versions.at(version).changes
       end
   end

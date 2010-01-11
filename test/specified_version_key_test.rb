@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class SpecifiedVersionKey < Test::Unit::TestCase
-  context 'A specified version key' do
+  context 'A model with a specified version key' do
     setup do
       @name = "Blah"
       @loser = Loser.create(:name => @name)
@@ -38,7 +38,8 @@ class SpecifiedVersionKey < Test::Unit::TestCase
       end
       
       should 'revert properly' do
-        @loser.revert_to!(@initial_version)
+        @loser.revert
+        @loser.save!
         assert_equal @initial_name, @loser.name
         assert_equal @count + 1, @loser.versions.count
         assert_not_equal @version, @loser.version
