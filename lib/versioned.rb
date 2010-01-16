@@ -53,10 +53,12 @@ module Versioned
       include(LockingInstanceMethods)
       class_inheritable_accessor :version_lock_key
       self.version_lock_key = options[:key] || :lock_version
-      self.version_use_key = self.version_lock_key
-
       key self.version_lock_key, Integer
-      (self.version_except_columns ||= []) << self.version_lock_key.to_s #don't version the lock key 
+
+      if self.respond_to?(:version_use_key)
+        self.version_use_key = self.version_lock_key
+        (self.version_except_columns ||= []) << self.version_lock_key.to_s #don't version the lock key 
+      end
     end
 
     def versioned(options = {})
