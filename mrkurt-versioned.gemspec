@@ -5,28 +5,31 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mrkurt-versioned}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["twoism", "toastyapps", "jacqui", "mrkurt"]
-  s.date = %q{2010-01-09}
+  s.date = %q{2010-01-16}
   s.description = %q{Versioning for MongoMapper}
   s.email = %q{mrkurt@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
   s.files = [
-    "README.rdoc",
+    ".gitignore",
+     "README.rdoc",
      "Rakefile",
      "VERSION",
      "lib/version.rb",
      "lib/versioned.rb",
+     "mrkurt-versioned.gemspec",
      "pkg/versioned-0.1.0.gem",
      "test/between_test.rb",
      "test/changes_test.rb",
      "test/comparable_test.rb",
      "test/creation_test.rb",
      "test/latest_changes_test.rb",
+     "test/lock_test.rb",
      "test/revert_test.rb",
      "test/schema.rb",
      "test/specified_version_key_test.rb",
@@ -47,6 +50,7 @@ Gem::Specification.new do |s|
      "test/latest_changes_test.rb",
      "test/specified_version_key_test.rb",
      "test/schema.rb",
+     "test/lock_test.rb",
      "test/changes_test.rb"
   ]
 
