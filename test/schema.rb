@@ -32,5 +32,16 @@ class Loser
   end
 end
 
+class LockableUser
+  include MongoMapper::Document
+  include Versioned
+  locking!
+
+  key :name, String
+  key :required_field, String
+  validates_presence_of :required_field
+end
+
 User.destroy_all
+Loser.destroy_all
 Version.destroy_all
