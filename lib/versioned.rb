@@ -1,6 +1,7 @@
 require 'version'
 
 module Versioned
+  class StaleDocumentError < MongoMapper::MongoMapperError; end
   def self.included(base)
     base.extend ClassMethods
     base.class_eval do
@@ -8,7 +9,56 @@ module Versioned
     end
   end
 
+  module LockingInstanceMethods
+    private
+      #new? isn't working
+      def is_new_document?
+        (read_attribute(self.version_lock_key).blank? && changes[self.version_lock_key.to_s].blank?) ||
+        (changes[self.version_lock_key.to_s] && changes[self.version_lock_key.to_s].first.blank?)
+      end
+      def prep_lock_version
+        old = read_attribute(self.version_lock_key)
+        if !is_new_document? || old.blank?
+          v = (Time.now.to_f * 1000).ceil.to_s
+          write_attribute self.version_lock_key, v
+        end
+
+        old
+      end
+
+      def save_to_collection(options = {})
+        current_version = prep_lock_version
+        if is_new_document?
+          collection.insert(to_mongo, :safe => true)
+        else
+          selector = { :_id => read_attribute(:_id), self.version_lock_key => current_version }
+          #can't upsert, safe must be true for this to work
+          result = collection.update(selector, to_mongo, :upsert => false, :safe => true)
+
+          if result.is_a?(Array) && result[0][0]['updatedExisting'] == false
+            write_attribute self.version_lock_key, current_version
+            raise StaleDocumentError.new
+          elsif !result.is_a?(Array)
+            #wtf?
+            write_attribute self.version_lock_key, current_version
+            raise "Unexpected result from mongo"
+          end
+
+          selector[:_id]
+        end
+      end
+  end
   module ClassMethods
+    def locking!(options = {})
+      include(LockingInstanceMethods)
+      class_inheritable_accessor :version_lock_key
+      self.version_lock_key = options[:key] || :lock_version
+      self.version_use_key = self.version_lock_key
+
+      key self.version_lock_key, Integer
+      (self.version_except_columns ||= []) << self.version_lock_key.to_s #don't version the lock key 
+    end
+
     def versioned(options = {})
       class_inheritable_accessor :version_only_columns
       self.version_only_columns = Array(options[:only]).map(&:to_s).uniq if options[:only]
@@ -59,6 +109,7 @@ module Versioned
       include InstanceMethods
       alias_method_chain :reload, :versions
     end
+
   end
 
   module InstanceMethods
