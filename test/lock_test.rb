@@ -1,7 +1,37 @@
 require 'test_helper'
 
 class LockTest < Test::Unit::TestCase
-  context 'A model with locks' do
+  context 'An unversioned model with locks' do
+    setup do
+      @user = UnversionedLockableUser.create(:name => 'Kurt')
+    end
+
+    should 'have a lock_version field' do
+      assert_not_nil @user.lock_version
+    end
+
+    should 'save just fine when no conflicts' do
+      @user.name = 'Bob'
+      assert @user.save
+    end
+
+    should 'save just fine when given the proper lock version' do
+      u = UnversionedLockableUser.find(@user.id)
+      @user.update_attributes(:name => 'Bill')
+
+      assert u.update_attributes(:name => 'Jose', :lock_version => @user.lock_version)
+    end
+
+    should 'not save when given the wrong version' do
+      assert_raise Versioned::StaleDocumentError do
+        @user.update_attributes(:name => 'Bob', :lock_version => 1111)
+      end
+
+      # lock_version should match what we passed in
+      assert_equal 1111, @user.lock_version
+    end
+  end
+  context 'A versioned model with locks' do
     setup do
       @user = LockableUser.create(:name => 'Kurt', :required_field => 'woo!')
     end

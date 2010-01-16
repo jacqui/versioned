@@ -42,6 +42,14 @@ class LockableUser
   validates_presence_of :required_field
 end
 
+class UnversionedLockableUser
+  include MongoMapper::Document
+  extend Versioned::ClassMethods
+  locking!
+  
+  key :name, String
+end
+
 User.destroy_all
 Loser.destroy_all
 Version.destroy_all
