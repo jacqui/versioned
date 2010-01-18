@@ -17,5 +17,39 @@ class User
   end
 end
 
+class Loser
+  include MongoMapper::Document
+  extend Versioned::ClassMethods
+  versioned :use_key => :revision
+  key :revision, Integer
+  key :name, String
+  timestamps!
+
+  before_save :set_revision
+
+  def set_revision
+    write_attribute :revision, (Time.now.to_f * 1000).ceil
+  end
+end
+
+class LockableUser
+  include MongoMapper::Document
+  include Versioned
+  locking!
+
+  key :name, String
+  key :required_field, String
+  validates_presence_of :required_field
+end
+
+class UnversionedLockableUser
+  include MongoMapper::Document
+  extend Versioned::ClassMethods
+  locking!
+  
+  key :name, String
+end
+
 User.destroy_all
+Loser.destroy_all
 Version.destroy_all
